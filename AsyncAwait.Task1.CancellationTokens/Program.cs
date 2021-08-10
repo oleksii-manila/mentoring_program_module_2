@@ -19,7 +19,7 @@ namespace AsyncAwait.Task1.CancellationTokens
         /// The Main method should not be changed at all.
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             
 
