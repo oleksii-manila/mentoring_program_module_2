@@ -33,7 +33,7 @@ namespace AsyncAwait.Task1.CancellationTokens
 
             string input = Console.ReadLine();
             List<string> nor = new List<string>();
-            
+
 
             while (input.Trim().ToUpper() != "Q")
             {
@@ -42,12 +42,10 @@ namespace AsyncAwait.Task1.CancellationTokens
                     nor.Add(input);
                     var token = new CancellationTokenSource();
 
-                    if (nor.Count > 1)
-                    {
-                        token.Cancel();
-                        await CalculateSum(n, token.Token);
-                    }
+
+                    token.Cancel(nor.Count > 1);
                     await CalculateSum(n, token.Token);
+
                 }
                 else
                 {
