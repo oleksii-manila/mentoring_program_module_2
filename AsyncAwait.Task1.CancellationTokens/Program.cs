@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace AsyncAwait.Task1.CancellationTokens
         /// <param name="args"></param>
         static async Task Main(string[] args)
         {
-            
+
 
             Console.WriteLine("Mentoring program L2. Async/await.V1. Task 1");
             Console.WriteLine("Calculating the sum of integers from 0 to N.");
@@ -31,18 +32,22 @@ namespace AsyncAwait.Task1.CancellationTokens
             Console.WriteLine("Enter N: ");
 
             string input = Console.ReadLine();
+            List<string> nor = new List<string>();
+            
+
             while (input.Trim().ToUpper() != "Q")
             {
-                CancellationTokenSource token = new CancellationTokenSource();
-
                 if (int.TryParse(input, out int n))
                 {
-                   var t =  CalculateSum(n, token.Token);
-                    
-                    if(!t.IsCompleted)
+                    nor.Add(input);
+                    var token = new CancellationTokenSource();
+
+                    if (nor.Count > 1)
                     {
                         token.Cancel();
+                        await CalculateSum(n, token.Token);
                     }
+                    await CalculateSum(n, token.Token);
                 }
                 else
                 {
@@ -66,7 +71,7 @@ namespace AsyncAwait.Task1.CancellationTokens
             Console.WriteLine("Enter N: ");
             // todo: add code to process cancellation and uncomment this line    
             // Console.WriteLine($"Sum for {n} cancelled...");
-                        
+
             Console.WriteLine($"The task for {n} started... Enter N to cancel the request:");
         }
     }
