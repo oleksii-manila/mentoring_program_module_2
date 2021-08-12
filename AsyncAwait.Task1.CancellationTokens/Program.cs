@@ -44,11 +44,13 @@ namespace AsyncAwait.Task1.CancellationTokens
                     if (nor.Count > 1)
                         token.Cancel();
 
+                    var token2 = new CancellationTokenSource();
                     Task task1 = new Task(async () => await CalculateSum(n, token.Token));
+                    token = token2;
                     
 
                     task1.Start();
-                    //Thread.Sleep(110*n);
+                   
 
                     //if (!task1.IsCompleted && nor.Count > 1)
                     //{
